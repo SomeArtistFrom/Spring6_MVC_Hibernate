@@ -9,13 +9,14 @@ Take a look at the list of users:
 <p></p>
 
 <div th:each="user : ${users}">
-
-<!--    <p th:text="'User Id: ' + ${user.id} + ', Name: ' + ${user.name} +-->
-<!--    ', Age: ' + ${user.age} + ', Profession: ' + ${user.profession}"></p>-->
-
     <a th:href="@{/users/{id}(id=${user.getId()})}"
-       th:text="${user.getName()}">user</a>
-
+       th:text="${user.getName() + ' ,  '+user.getProfession()}">user</a>
 </div>
+
+<br/>
+<hr/>
+
+<a href="/users/new">Create new user:</a>
+
 </body>
 </html>

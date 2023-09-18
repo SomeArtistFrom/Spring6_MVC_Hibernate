@@ -14,10 +14,11 @@ public class UserDAO {
     {
         users = new ArrayList<>();
         users.add(new User(++USER_COUNT, "Mamma mia", 29, "Nurse"));
-        users.add(new User(++USER_COUNT, "Santa Maria", 39, "Actress"));
+        users.add(new User(++USER_COUNT, "Santa Maria", 34, "Actress"));
+        users.add(new User(++USER_COUNT, "Bella Lucia", 47, "Driver"));
     }
 
-    public List<User> users() {
+    public List<User> showAllUsers() {
         return users;
     }
 
@@ -26,15 +27,20 @@ public class UserDAO {
                 filter(user -> user.getId() == id).findAny().orElse(null);
     }
 
-//    public - create(){
-//
-//    }
-//
-//    public - update(){
-//
-//    }
-//
-//    public - delete (){
-//
-//    }
+    public void save(User user) {
+        user.setId(++USER_COUNT);
+        users.add(user);
+    }
+
+    public void update(int id, User updatedUser) {
+        User userToNeedUpdated = showOneUser(id);
+
+        userToNeedUpdated.setName(updatedUser.getName());
+        userToNeedUpdated.setAge(updatedUser.getAge());
+        userToNeedUpdated.setProfession(updatedUser.getProfession());
+    }
+
+    public void delete(int id) {
+        users.removeIf(p -> p.getId() == id);
+    }
 }

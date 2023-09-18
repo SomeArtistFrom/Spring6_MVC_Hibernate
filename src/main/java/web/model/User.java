@@ -1,10 +1,24 @@
 package web.model;
 
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Size;
+
 public class User {
     private int id;
+    @NotEmpty(message = "name should not be empty")
+    @Size(min=2,max= 25,message = "name should be > 2 and < 28 char")
     private String name;
-    private  int age;
+    @Min(value=0, message = "you need > 0 years")
+    @Max(value = 150, message = "you need < 150 years")
+    private int age;
+    @NotEmpty(message = "profession should not be empty")
     private String profession;
+
+    public User() {
+
+    }
 
     public User(int id, String name, int age, String profession) {
         this.id = id;
