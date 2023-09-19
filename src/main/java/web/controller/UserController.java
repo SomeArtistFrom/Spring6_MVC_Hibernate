@@ -12,7 +12,7 @@ import web.model.User;
 import java.util.List;
 
 @Controller
-//@RequestMapping("/users")
+@RequestMapping("/users")
 public class UserController {
     private UserDAO userDAO;
 
@@ -21,7 +21,7 @@ public class UserController {
         this.userDAO = userDAO;
     }
 
-    @GetMapping("/users")
+    @GetMapping()
     //@GetMapping
     public String showAllUsers(
             @RequestParam(name = "count", defaultValue = "-1") int count,
@@ -37,18 +37,18 @@ public class UserController {
         return "showAllUsers";
     }
 
-    @GetMapping("/users/{id}")
+    @GetMapping("/{id}")
     public String showOneUser(@PathVariable("id") int id, Model model) {
         model.addAttribute("user", userDAO.showOneUser(id));
         return "showOneUser";
     }
 
-    @GetMapping("/users/new")
+    @GetMapping("/new")
     public String createNewUser(@ModelAttribute("user") User user) {
         return "new";
     }
 
-    @PostMapping("/users")
+    @PostMapping()
     public String createForm(@ModelAttribute("user") @Valid User user,
                              BindingResult bindingResult) {
         if (bindingResult.hasErrors())
@@ -58,13 +58,13 @@ public class UserController {
         return "redirect:/users";
     }
 
-    @GetMapping("/users/{id}/edit")
+    @GetMapping("/{id}/edit")
     public String edit(@PathVariable("id") int id, Model model) {
         model.addAttribute("user", userDAO.showOneUser(id));
         return "edit";
     }
 
-    @PatchMapping("/users/{id}")
+    @PatchMapping("/{id}")
     public String update(@ModelAttribute("user") @Valid User user,
                          BindingResult bindingResult,
                          @PathVariable("id") int id) {
@@ -75,7 +75,7 @@ public class UserController {
         return "redirect:/users";
     }
 
-    @DeleteMapping("/users/{id}")
+    @DeleteMapping("/{id}")
     public String delete(@PathVariable("id") int id) {
         userDAO.delete(id);
         return "redirect:/users";
