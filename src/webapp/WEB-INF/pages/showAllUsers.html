@@ -2,11 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>ListOfUsers</title>
+    <title>Show all users</title>
 </head>
 <body>
 Take a look at the list of users:
-<p></p>
+<br/>
+<hr/>
 
 <div th:each="user : ${users}">
     <a th:href="@{/users/{id}(id=${user.getId()})}"
@@ -16,7 +17,7 @@ Take a look at the list of users:
 <br/>
 <hr/>
 
-<a href="users/new">Create new user:</a>
+<a href="users/new">Create new user</a>
 
 </body>
 </html>

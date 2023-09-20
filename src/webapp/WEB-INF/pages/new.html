@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>createNewUser</title>
+    <title>Create new user</title>
 </head>
 <body>
 
@@ -22,7 +22,7 @@
     <div style="color:orangered"
          th:if="${#fields.hasErrors('profession')}" th:errors="*{profession}">Profession error</div>
     <br/>
-    <input type="submit" value="Create!"/>
+    <input type="submit" value="Create"/>
 </form>
 
 </body>

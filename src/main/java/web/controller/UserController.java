@@ -1,10 +1,12 @@
 package web.controller;
 
-import jakarta.validation.Valid;
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import web.dao.UserDAO;
 import web.model.User;
@@ -22,7 +24,6 @@ public class UserController {
     }
 
     @GetMapping()
-    //@GetMapping
     public String showAllUsers(
             @RequestParam(name = "count", defaultValue = "-1") int count,
             Model model) {
@@ -49,14 +50,15 @@ public class UserController {
     }
 
     @PostMapping()
-    public String createForm(@ModelAttribute("user") @Valid User user,
-                             BindingResult bindingResult) {
-        if (bindingResult.hasErrors())
+    public String saveNewUser(@ModelAttribute("user") @Valid User user,
+                              BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
             return "new";
-
+        }
         userDAO.save(user);
         return "redirect:/users";
     }
+
 
     @GetMapping("/{id}/edit")
     public String edit(@PathVariable("id") int id, Model model) {
@@ -66,14 +68,14 @@ public class UserController {
 
     @PatchMapping("/{id}")
     public String update(@ModelAttribute("user") @Valid User user,
-                         BindingResult bindingResult,
-                         @PathVariable("id") int id) {
-        if(bindingResult.hasErrors()){
+                         BindingResult bindingResult, @PathVariable("id") int id) {
+        if (bindingResult.hasErrors()) {
             return "edit";
         }
         userDAO.update(id, user);
         return "redirect:/users";
     }
+
 
     @DeleteMapping("/{id}")
     public String delete(@PathVariable("id") int id) {
